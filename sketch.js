@@ -24,9 +24,35 @@ function isEqual(p,q,r){
   return (p==q && q == r && p != '');
 }
 
-function drawLine(pos) {
+function afterGame(win) {
+  for (let i = 0; i < board.length; i++) {
+    board[i] = -1;
+  }
+  gameEnd = true;
+  background(255);
+  strokeWeight(2);
+  stroke(0);
+  fill(0);
+  textSize(50);
+  textAlign(CENTER);
+  if (win === 'X')
+    text("BOT WINS!", 200, 150);
+  else if (win === 'O')
+    text("PLAYER WINS!", 200, 150);
+  else
+    text("DRAW", 200, 150);
+  textSize(30);
+  noStroke();
+  text("Let's play again....", 200, 350);
+  setTimeout(function() {
+    play = true;
+  }, 1000);
+}
+
+function drawLine(result) {
   strokeWeight(6);
   stroke(0);
+  pos = lines;
   if (pos === 'lineD2')
     line(375, 25, 25, 375);
   
@@ -50,6 +76,9 @@ function drawLine(pos) {
   else if (pos === 'line'){
     line(0, 0, 0, 0);
   }
+setTimeout(function() {
+    afterGame(result);
+  }, 1000);
  
 }
 
@@ -102,7 +131,7 @@ lines = 'line';
 }
 
 function mousePressed(){
-  if(currentPlayer == humanPlayer){
+  if(nowPlayer == humanPlayer){
     let i = floor(mouseX / x);
     let j = floor(mouseY / y);
   
@@ -148,8 +177,9 @@ function draw() {
   if(result != null){
    
     noLoop();
-     drawLine(lines);
-    createP(result).style('color','#111').style('font-size', '40pt');
+     drawLine(result);
+ 
+    // createP(result).style('color','#111').style('font-size', '40pt');
   }
 
 }

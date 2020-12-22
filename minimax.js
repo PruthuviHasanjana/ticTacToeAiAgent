@@ -22,8 +22,8 @@ function bestNextMove() {
 }
 
 let scores = {
-  X: 10,
-  O: -10,
+  X: 1,
+  O: -1,
   tie: 0
 };
 
